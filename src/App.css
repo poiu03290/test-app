@@ -1,38 +1,79 @@
-.App {
-  text-align: center;
+/* 전역적 클래스 */
+.container {
+    width: 100%;
+    height: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.flex-row {
+    flex-direction: row;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.background {
+    background-color: lightgray;
 }
 
-.App-link {
-  color: #61dafb;
+.bg {
+    background-color: pink;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* 헤더 부분 */
+.Header {
+    flex-direction: row;
+    justify-content: space-between;
 }
+
+.cont-logo {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    line-height: 60px;
+    margin-left: 4px;
+}
+
+.img-logo {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+/* 서비스 홈화면 */
+.cont-service {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cont-order {
+    max-width: 160px;
+    margin: 8px 4px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* 회원가입 form */
+.cont-auth, .cont-login {
+    align-items: flex-start;
+    font-size: 12px;
+}
+
+.cont-auth input, .cont-login input {
+    margin-bottom: 8px;
+}
+
+.cont-auth input:focus, .cont-login input:focus {
+    outline: none;
+}
+
+.cont-auth button, .cont-login button {
+    width: 100%;
+}
+
