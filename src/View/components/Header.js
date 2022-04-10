@@ -22,10 +22,9 @@ const NavLink = styled(Link)`
 
 const Header = () => {
     const { pathname } = useLocation()
-    const isToken = useContext(userContext)
-    console.log(isToken)
+    const context = useContext(userContext)
     return (
-        isToken ? (
+        context.isToken ? (
             <>
                 <header className='Header flex-center background'>
                     <div className='cont-logo'>

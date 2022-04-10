@@ -52,7 +52,7 @@ const Login = (props) => {
                     placeholder='비밀번호 입력(8~15자)'
                     onChange={(event) => setProfile({...profile, password: event.target.value})}    
                 />
-                <button tpye="submit" onClick={onLoginButtonClick}>로그인</button>
+                <button type="submit" onClick={onLoginButtonClick}>로그인</button>
             </form>
         </div>
     )
