@@ -2,6 +2,8 @@ import React, { useState, useCallback, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { userContext } from '../../../App'
 
+const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}/i
+
 const Login = () => {
     const navigate = useNavigate()
     const context = useContext(userContext)
@@ -13,7 +15,16 @@ const Login = () => {
         mobile: ''
     })
 
-    const onLoginButtonClick = useCallback(async() => {
+    // 이메일만 형식 확인.
+    const isCheckVaildEmail = useCallback(() => {
+        if (!emailRegex.test(profile.email)) {
+            return false
+        }
+
+        return true
+    }, [profile.email])
+
+    const onLoginButtonClick = useCallback(async(value) => {
         const res = await fetch(context.url + "login", {
             method: "POST",
             headers: context.headerType,
@@ -25,13 +36,18 @@ const Login = () => {
             }),
         })
         const json = await res.json()
+        if(!isCheckVaildEmail()) {
+            alert('이메일 형식을 확인해주세요.')
+            return
+        }
         if(json.status === 401) {
             alert('비밀번호는 8자리 이상 입력해주세요.')
+            return
         } else {
             context.getToken(json.token)
             navigate('/')
         }
-      }, [profile, context, navigate])
+      }, [profile, context, navigate, isCheckVaildEmail])
 
     return (
         <div className='container flex-center'>

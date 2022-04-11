@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { userContext } from '../../App';
 import PageButton from './PageButton';
 
@@ -6,7 +6,7 @@ const PageForm = (props) => {
     const { setOrderLists, orderLists, setOrderItems } = props
     const context = useContext(userContext)
 
-    const onPageButtonClick = async (event) => {
+    const onPageButtonClick = useCallback(async(event) => {
         let value = event.target.value
         const res = await fetch(context.url + `order?page=${value}`, {
           method: "GET",
@@ -15,7 +15,7 @@ const PageForm = (props) => {
         const json = await res.json()
         setOrderLists(json)
         setOrderItems(json.content)
-    }
+    }, [context, setOrderLists, setOrderItems])
 
     const pageButtonMapping = [...Array(orderLists.totalPages).keys()].map((index) => 
         <PageButton 

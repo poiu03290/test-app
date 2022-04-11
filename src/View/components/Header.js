@@ -10,7 +10,7 @@ const Header = () => {
             <>
                 <header className='Header flex-center background'>
                     <div className='cont-logo'>
-                        <img src={logo} alt={"서비스 로고 이미지"} className="img-logo" />
+                        <img src={logo} loading="lazy" alt={"서비스 로고 이미지"} className="img-logo" />
                     </div>
                     <nav>
                         <ul>

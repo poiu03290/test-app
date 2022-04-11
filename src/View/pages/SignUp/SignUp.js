@@ -9,7 +9,6 @@ const SignUp = () => {
     const refPassword = useRef(null)
     const navigate = useNavigate()
     const context = useContext(userContext)
-
     const [profile, setProfile] = useState({
         email: '',
         password: '',
@@ -80,6 +79,7 @@ const SignUp = () => {
         }
     }, [])
 
+    // 버튼 클릭시
     const onJoinButtonClick = useCallback(async() => {
         const res = await fetch(context.url + "sign-up", {
             method: "POST",
