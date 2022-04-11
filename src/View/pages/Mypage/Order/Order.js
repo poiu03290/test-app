@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams, useLocation } from "react-router-dom";
 import OrderItem from '../../../components/OrderItem'
 import PageForm from '../../../components/PageForm'
 import Item from '../Item/Item';
 import { userContext } from '../../../../App';
 
 const Order = () => {
+    const params = useParams()
+    const location = useLocation()
     const context = useContext(userContext)
     const [orderLists, setOrderLists] = useState([])
     const [orderItems, setOrderItems] = useState([])
+    const [toggle, setToggle] = useState(false)
   
     const getOrderLists = async () => {
       const res = await fetch(context.url + "order", {
@@ -34,19 +37,31 @@ const Order = () => {
             />)
     }
 
+    const paramsId = location.pathname.split('/')
+    useEffect(() => {
+        if (Number(paramsId[paramsId.length - 1])) {
+            setToggle(true)
+        } else {
+            setToggle(false)
+        }
+    }, [params])
+
     return (
-        <div>
-            <h2>주문 목록</h2>
-            {orderItemMapping}
-            <PageForm 
-                setOrderLists={setOrderLists}
-                orderLists={orderLists}
-                setOrderItems={setOrderItems}
-            />
+        !toggle ? (
+            <div>
+                <h2>주문 목록</h2>
+                {orderItemMapping}
+                <PageForm 
+                    setOrderLists={setOrderLists}
+                    orderLists={orderLists}
+                    setOrderItems={setOrderItems}
+                />
+            </div>
+        ) : (
             <Routes>
                 <Route path=":id" element={<Item />} />
-            </Routes>
-        </div>
+            </Routes> 
+        )
     )
 }
 
