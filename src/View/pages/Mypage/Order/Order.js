@@ -24,15 +24,20 @@ const Order = () => {
         getOrderLists()
     }, [])
 
-    let lis = []
+    let orderItemMapping = []
     for (let i = 0; i < orderItems.length; i++) {
-        lis.push(<OrderItem key={orderItems[i].id} id={orderItems[i].id} itemName={orderItems[i].itemName} />)
+        orderItemMapping.push(
+            <OrderItem 
+                key={orderItems[i].id} 
+                id={orderItems[i].id} 
+                itemName={orderItems[i].itemName} 
+            />)
     }
 
     return (
         <div>
             <h2>주문 목록</h2>
-            {lis}
+            {orderItemMapping}
             <PageForm 
                 setOrderLists={setOrderLists}
                 orderLists={orderLists}

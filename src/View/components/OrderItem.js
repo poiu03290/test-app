@@ -9,8 +9,7 @@ const OrderItem = (props) => {
         <div>
             <ul>
                 <li className='order-list'>
-                    <Link to={`/mypage/order/${id}`}>{id}. {itemName}</Link>
-                    {/* <Link to="/mypage/order/item">{id}. {itemName}</Link> */}
+                    <Link to={`/mypage/order/${id}`} className="list-link">{id}. {itemName}</Link>
                 </li>
             </ul>
         </div>

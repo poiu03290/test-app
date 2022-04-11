@@ -7,7 +7,7 @@ import SignUp from './View/pages/SignUp/SignUp';
 import Login from './View/pages/Login/Login'
 import { userContext } from './App'
 
-
+// Router는 분리하여 구성.
 const Router = () => {
     const context = useContext(userContext)
     return context.isToken ? (

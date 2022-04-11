@@ -40,10 +40,6 @@ a {
     background-color: var(--light-gray);
 }
 
-.bg {
-    background-color: pink;
-}
-
 /* 헤더 부분 */
 .Header {
     flex-direction: row;
@@ -72,7 +68,7 @@ a {
 .Header li {
     list-style: none;
     cursor: pointer;
-    margin-right: 16px;
+    margin-right: 1em;
 }
 
 .active {
@@ -111,8 +107,17 @@ a {
     width: 100%;
 }
 
+/* 로그아웃 */
+.cont-logout {
+    margin-top: 1em;
+}
+
 /* 주문 목록 */
 .order-list:hover {
     background-color: var(--light-gray);
     cursor: pointer;
+}
+
+.list-link {
+    display: block;
 }

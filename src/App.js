@@ -15,7 +15,11 @@ const App = () => {
     headerType: {"Content-type": "application/json"},
     getToken: (_token) => setContext({...context, 
       isToken: true,
-      toke: _token
+      token: _token
+    }),
+    removeToken: () => setContext({...context,
+      isToken: false,
+      token: ''
     })
   })
 

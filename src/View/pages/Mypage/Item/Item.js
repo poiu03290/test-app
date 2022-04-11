@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from "react-router-dom";
+import { userContext } from '../../../../App';
 
 const Item = () => {
+    const context = useContext(userContext)
     const params = useParams()
     const [item, setItem] = useState({
         id: 0,
         itemName: ''
     })
-    let id = Number(params.id)
+    let _id = Number(params.id)
 
     const getItem = async() => {
-        const res = await fetch(`https://mycroft-test-api.herokuapp.com/order/${id}`, {
+        const res = await fetch(context.url + `order/${_id}`, {
             method: "GET",
-            headers: {
-                "Content-type": "application/json",
-              },
-            })
+            headers: context.headerType,
+        })
             const json = await res.json()
-            console.log(json)
             setItem({...item, id: json.id, itemName: json.itemName})
         }
+    
     useEffect(() => {
         getItem()
     }, [params])

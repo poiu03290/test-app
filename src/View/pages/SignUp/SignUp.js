@@ -29,7 +29,8 @@ const SignUp = () => {
 
     // 사용자가 입력할 때, 비밀번호 유효성 검증
     const CheckLength = useCallback(() => {
-        if (profile.password.length <= 6) {
+        if (profile.password && 
+            profile.password.length <= 6) {
             refPassword.current.style.border = 'red solid 1px'
             return
         } 
