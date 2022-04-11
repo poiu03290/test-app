@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../../App.css'
 
 const OrderItem = (props) => {
-    const { id, itemName, getItem } = props
+    const { id, itemName } = props
 
     return(
         <div>

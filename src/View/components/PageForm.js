@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { userContext } from '../../App';
 import PageButton from './PageButton';
 
-const Page = (props) => {
+const PageForm = (props) => {
     const { setOrderLists, orderLists, setOrderItems } = props
+    const context = useContext(userContext)
 
     const onPageButtonClick = async (event) => {
         let value = event.target.value
-        const res = await fetch(`https://mycroft-test-api.herokuapp.com/order?page=${value}`, {
+        const res = await fetch(context.url + `order?page=${value}`, {
           method: "GET",
-          headers: {
-            "Content-type": "application/json",
-          },
+          headers: context.headerType,
         })
         const json = await res.json()
         setOrderLists(json)
@@ -36,4 +36,4 @@ const Page = (props) => {
     )
 }
 
-export default Page
+export default PageForm

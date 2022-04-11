@@ -1,31 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { Routes, Route } from "react-router-dom";
 import OrderItem from '../../../components/OrderItem'
-import Page from '../../../components/Page'
+import PageForm from '../../../components/PageForm'
+import Item from '../Item/Item';
+import { userContext } from '../../../../App';
 
-const Order = (props) => {
+const Order = () => {
+    const context = useContext(userContext)
+    const [orderLists, setOrderLists] = useState([])
+    const [orderItems, setOrderItems] = useState([])
+  
+    const getOrderLists = async () => {
+      const res = await fetch(context.url + "order", {
+        method: "GET",
+        headers: context.headerType,
+      })
+      const json = await res.json()
+      setOrderLists(json)
+      setOrderItems(json.content)
+    }
     
-    const { orderLists, orderItems, setOrderItems, setOrderLists, getOrderLists, getItem } = props
     useEffect(() => {
         getOrderLists()
     }, [])
 
-    const orderItemsMapping = orderItems.map((item, index) =>
-        <OrderItem 
-            key={index}
-            id={item.id}
-            itemName={item.itemName} 
-            getItem={getItem}
-    />) 
+    let lis = []
+    for (let i = 0; i < orderItems.length; i++) {
+        lis.push(<OrderItem key={orderItems[i].id} id={orderItems[i].id} itemName={orderItems[i].itemName} />)
+    }
 
     return (
         <div>
             <h2>주문 목록</h2>
-            {orderItemsMapping}
-            <Page 
+            {lis}
+            <PageForm 
                 setOrderLists={setOrderLists}
                 orderLists={orderLists}
                 setOrderItems={setOrderItems}
             />
+            <Routes>
+                <Route path=":id" element={<Item />} />
+            </Routes>
         </div>
     )
 }

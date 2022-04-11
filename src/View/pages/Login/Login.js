@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
+import { userContext } from '../../../App'
 
-const Login = (props) => {
-    const { getToken } = props
+const Login = () => {
     const navigate = useNavigate()
+    const context = useContext(userContext)
 
     const [profile, setProfile] = useState({
         email: '',
@@ -13,11 +14,9 @@ const Login = (props) => {
     })
 
     const onLoginButtonClick = useCallback(async() => {
-        const res = await fetch("https://mycroft-test-api.herokuapp.com/login", {
+        const res = await fetch(context.url + "login", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: context.headerType,
             body: JSON.stringify({
                 user: {
                     email: profile.email,
@@ -29,10 +28,10 @@ const Login = (props) => {
         if(json.status === 401) {
             alert('비밀번호는 8자리 이상 입력해주세요.')
         } else {
-            getToken(json.token)
+            context.getToken(json.token)
             navigate('/')
         }
-      }, [profile, getToken, navigate])
+      }, [profile, context, navigate])
 
     return (
         <div className='container flex-center'>

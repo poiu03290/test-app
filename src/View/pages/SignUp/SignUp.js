@@ -1,13 +1,14 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
+import { userContext } from '../../../App'
 
 const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}/i
 
-const SignUp = (props) => {
-    const { getToken } = props
+const SignUp = () => {
     const refEmail = useRef(null)
     const refPassword = useRef(null)
     const navigate = useNavigate()
+    const context = useContext(userContext)
 
     const [profile, setProfile] = useState({
         email: '',
@@ -71,6 +72,7 @@ const SignUp = (props) => {
         }
     }, [profile.password, profile.Repassword])
 
+    // 연락처 input에 숫자만 입력토록.
     const isCheckNumber = useCallback((event) => {
         if(!Number(event.target.value)) {
             event.target.value = event.target.value.slice(0, event.target.value.length-1)
@@ -78,11 +80,9 @@ const SignUp = (props) => {
     }, [])
 
     const onJoinButtonClick = useCallback(async() => {
-        const res = await fetch("https://mycroft-test-api.herokuapp.com/sign-up", {
+        const res = await fetch(context.url + "sign-up", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: context.headerType,
             body: JSON.stringify({
                 user: {
                     email: profile.email,
@@ -93,12 +93,12 @@ const SignUp = (props) => {
         })
         const json = await res.json()
         if(isCheckVaildEmail() && isCheckValidPassword() && isCheckValidRePassword()) {
-            getToken(json.token)
+            context.getToken(json.token)
             navigate("/")
         } else {
             return
         }
-      }, [profile, getToken, isCheckVaildEmail, isCheckValidPassword, isCheckValidRePassword, navigate])
+      }, [profile, context, isCheckVaildEmail, isCheckValidPassword, isCheckValidRePassword, navigate])
 
     return(
         <div className='container flex-center'>
@@ -112,7 +112,7 @@ const SignUp = (props) => {
                     ref={refEmail}
                     onChange={(event) => 
                         setProfile({...profile, email: event.target.value})
-                        } 
+                    } 
                     onBlur={(event) => CheckEmailRegex(event.target.value)}
                 />
                 <label htmlFor='auth-pw'>비밀번호</label>

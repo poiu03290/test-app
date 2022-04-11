@@ -64,6 +64,21 @@ a {
     vertical-align: middle;
 }
 
+.Header ul {
+    display: flex;
+    flex-direction: row;
+}
+
+.Header li {
+    list-style: none;
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.active {
+    color: blue;
+}
+
 /* 서비스 홈화면 */
 .cont-service {
     display: flex;
@@ -77,7 +92,6 @@ a {
     display: flex;
     flex-direction: column;
 }
-
 
 /* 회원가입 form */
 .cont-auth, .cont-login {
